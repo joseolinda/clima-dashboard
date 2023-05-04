@@ -5,7 +5,7 @@ import plost
 from PIL import Image
 
 # Page setting
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="Streamlit app", page_icon=":shark:")
 
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -14,11 +14,15 @@ with open('style.css') as f:
 seattle_weather = pd.read_csv('https://raw.githubusercontent.com/tvst/plost/master/data/seattle-weather.csv', parse_dates=['date'])
 stocks = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/stocks_toy.csv')
 
+# Sidebar
+st.sidebar.image(Image.open('streamlit-logo.png'))
+
 # Row A
-a1, a2, a3 = st.columns(3)
-a1.image(Image.open('streamlit-logo-secondary-colormark-darktext.png'))
-a2.metric("Wind", "9 mph", "-8%")
-a3.metric("Humidity", "86%", "4%")
+a1, a2 = st.columns(2)
+a1.metric("Wind", "9 mph", "-8%")
+a2.metric("Humidity", "86%", "4%")
+
+y = st.sidebar.slider("Período de tempo", 1990, 2023)
 
 # Row B
 b1, b2, b3, b4 = st.columns(4)
